@@ -1,4 +1,3 @@
-// frontend/hooks/useUser.ts
 "use client"
 
 import { useState, useEffect } from "react"
@@ -21,7 +20,14 @@ export function useUser() {
       try {
         const res = await fetch("/api/me")
         const data = await res.json()
-        setSupabaseUser(data.user)
+        if (data?.user) {
+          setSupabaseUser({
+            id: data.user.id,
+            name: data.user.name ?? null,
+            email: data.user.email ?? null,
+            image: data.user.image ?? null,
+          })
+        }
       } catch (err) {
         console.error("useUser supabase fetch error:", err)
       } finally {
@@ -41,8 +47,14 @@ export function useUser() {
     }
   }, [status])
 
-  const user: User | null =
-    session?.user ?? supabaseUser ?? null
+  const user: User | null = session?.user
+    ? {
+        id: session.user.id,
+        name: session.user.name ?? null,
+        email: session.user.email ?? null,
+        image: session.user.image ?? null,
+      }
+    : supabaseUser
 
   return { user, loading }
 }
