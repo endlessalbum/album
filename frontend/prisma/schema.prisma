@@ -562,7 +562,7 @@ model oauth_clients {
 model PasswordResetToken {
   id        Int      @id @default(autoincrement())
   token     String   @unique
-  userId    Int
+  userId    String
   createdAt DateTime @default(now())
   expiresAt DateTime
 
