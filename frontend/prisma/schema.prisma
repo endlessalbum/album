@@ -564,6 +564,7 @@ model PasswordResetToken {
   token     String   @unique
   userId    Int
   createdAt DateTime @default(now())
+  expiresAt DateTime
 
   @@schema("auth")
 }
