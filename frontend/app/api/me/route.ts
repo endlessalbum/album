@@ -8,12 +8,12 @@ export async function GET() {
       return NextResponse.json({ user: null }, { status: 200 })
     }
 
-    // нормализуем поля, чтобы не было undefined
+    // нормализуем supabase user → наш формат User
     const safeUser = {
       id: user.id,
-      name: user.name ?? null,
+      name: user.user_metadata?.name ?? null,
       email: user.email ?? null,
-      image: user.image ?? null,
+      image: user.user_metadata?.avatar_url ?? null,
     }
 
     return NextResponse.json({ user: safeUser }, { status: 200 })
