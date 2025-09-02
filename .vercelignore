@@ -1,0 +1,4 @@
+backend/
+supabase/
+*.md
+*.log
